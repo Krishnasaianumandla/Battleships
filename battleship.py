@@ -72,7 +72,18 @@ Parameters: no parameters
 Returns: 2D list of ints
 '''
 def createShip():
-    return
+    row,col=random.randint(1,8),random.randint(1,8)
+    """position=1 indicates vertical allignment 
+    and position=0 indicated horizontal allignment"""
+    position=random.randint(0,1)
+    ship=[]
+    if position == 1:
+        for row in range(row-1,row+2):
+            ship.append([row,col])
+    else:
+        for col in range(col-1,col+2):
+            ship.append([row,col])
+    return ship
 
 
 '''
@@ -272,4 +283,4 @@ if __name__ == "__main__":
 
     ## Finally, run the simulation to test it manually ##
     #runSimulation(500, 500)
-    test.testEmptyGrid()
+    test.testCreateShip()
