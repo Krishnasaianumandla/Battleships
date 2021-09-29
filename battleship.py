@@ -32,6 +32,7 @@ def makeModel(data):
     data["no_of_ships"] = 5
     data["comp_board"] = emptyGrid(data["no_of_rows"],data["no_of_cols"])
     data["user_board"] = emptyGrid(data["no_of_rows"],data["no_of_cols"])
+    #data["user_board"]= test.testGrid()
     data["comp_board"] = addShips(data["comp_board"],data["no_of_ships"])   
     return
 
@@ -127,8 +128,14 @@ Parameters: dict mapping strs to values ; Tkinter canvas ; 2D list of ints ; boo
 Returns: None
 '''
 def drawGrid(data, canvas, grid, showShips):
-    return
-
+    for row in range(data["no_of_rows"]):
+        for col in range(data["no_of_cols"]):
+            if grid[row][col] == SHIP_UNCLICKED:
+                canvas.create_rectangle(data["cellSize"]*col,data["cellSize"]*row,data["cellSize"]*(col+1),data["cellSize"]*(row+1),fill="yellow")
+            else:
+                canvas.create_rectangle(data["cellSize"]*col,data["cellSize"]*row,data["cellSize"]*(col+1),data["cellSize"]*(row+1),fill="blue")
+            
+    return data
 
 ### WEEK 2 ###
 
@@ -301,4 +308,4 @@ if __name__ == "__main__":
     ## Finally, run the simulation to test it manually ##
     #runSimulation(500, 500)
     #test.testAddShips()
-    test.testMakeModel()
+    test.testDrawGrid()
