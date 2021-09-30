@@ -33,7 +33,8 @@ def makeModel(data):
     data["comp_board"] = emptyGrid(data["no_of_rows"],data["no_of_cols"])
     #data["user_board"] = emptyGrid(data["no_of_rows"],data["no_of_cols"])
     data["user_board"]= test.testGrid()
-    data["comp_board"] = addShips(data["comp_board"],data["no_of_ships"])   
+    data["comp_board"] = addShips(data["comp_board"],data["no_of_ships"])
+    data["temporary_ship"]= createShip()  
     return
 
 
@@ -171,7 +172,7 @@ Parameters: dict mapping strs to values ; mouse event object
 Returns: list of ints
 '''
 def getClickedCell(data, event):
-    x,y = event.x//50,event.y//50
+    x,y = event.x//data["cellSize"],event.y//data["cellSize"]
     return [y,x]
 
 
@@ -181,6 +182,7 @@ Parameters: dict mapping strs to values ; Tkinter canvas; 2D list of ints
 Returns: None
 '''
 def drawShip(data, canvas, ship):
+
     return
 
 
