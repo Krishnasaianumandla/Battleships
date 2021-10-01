@@ -31,9 +31,10 @@ def makeModel(data):
     data["cellSize"] = data["boardSize"]/data["no_of_cols"]
     data["no_of_ships"] = 5
     data["comp_board"] = emptyGrid(data["no_of_rows"],data["no_of_cols"])
-    #data["user_board"] = emptyGrid(data["no_of_rows"],data["no_of_cols"])
-    data["user_board"]= test.testGrid()
-    data["comp_board"] = addShips(data["comp_board"],data["no_of_ships"])   
+    data["user_board"] = emptyGrid(data["no_of_rows"],data["no_of_cols"])
+    # data["user_board"]= test.testGrid()
+    data["comp_board"] = addShips(data["comp_board"],data["no_of_ships"]) 
+    data["temporary_ship"]=test.testShip()
     return
 
 
@@ -43,8 +44,10 @@ Parameters: dict mapping strs to values ; Tkinter canvas ; Tkinter canvas
 Returns: None
 '''
 def makeView(data, userCanvas, compCanvas):
-    userCanvas = drawGrid(data,userCanvas,data["user_board"], True)
+    canvas = drawGrid(data,userCanvas,data["user_board"], True)
+    userCanvas = drawShip(data,userCanvas,data["temporary_ship"])
     compCanvas = drawGrid(data,compCanvas,data["comp_board"], True)
+    
     return
 
 
@@ -171,7 +174,7 @@ Parameters: dict mapping strs to values ; mouse event object
 Returns: list of ints
 '''
 def getClickedCell(data, event):
-    x,y = event.x//50,event.y//50
+    x,y = event.x//data["cellSize"],event.y//data["cellSize"]
     return [y,x]
 
 
@@ -181,6 +184,8 @@ Parameters: dict mapping strs to values ; Tkinter canvas; 2D list of ints
 Returns: None
 '''
 def drawShip(data, canvas, ship):
+    for row in range(len(ship)):
+        canvas.create_rectangle(data["cellSize"]*ship[row][1],data["cellSize"]*ship[row][0],data["cellSize"]*(ship[row][1]+1),data["cellSize"]*(ship[row][0]+1),fill="white")
     return
 
 
@@ -315,7 +320,7 @@ def runSimulation(w, h):
 if __name__ == "__main__":
 
     ## Finally, run the simulation to test it manually ##
-    # runSimulation(500, 500)
+    runSimulation(500, 500)
     # test.testIsVertical()
     # test.testIsHorizontal()
-    test.testGetClickedCell()
+    # test.testDrawShip()
