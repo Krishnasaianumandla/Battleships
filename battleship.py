@@ -216,7 +216,7 @@ def placeShip(data):
         data["user_added_ships"] += 1
     else:
         print("Ship clicked is not valid")
-    data["temporary_ship"]=[[]]
+    data["temporary_ship"]=[]
     return
 
 
