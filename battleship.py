@@ -35,6 +35,7 @@ def makeModel(data):
     # data["user_board"]= test.testGrid()
     data["comp_board"] = addShips(data["comp_board"],data["no_of_ships"]) 
     data["temporary_ship"]=test.testShip()
+    data["user_added_ships"] = 0
     return
 
 
@@ -44,7 +45,7 @@ Parameters: dict mapping strs to values ; Tkinter canvas ; Tkinter canvas
 Returns: None
 '''
 def makeView(data, userCanvas, compCanvas):
-    canvas = drawGrid(data,userCanvas,data["user_board"], True)
+    usercanvas = drawGrid(data,userCanvas,data["user_board"], True)
     userCanvas = drawShip(data,userCanvas,data["temporary_ship"])
     compCanvas = drawGrid(data,compCanvas,data["comp_board"], True)
     
@@ -195,7 +196,10 @@ Parameters: 2D list of ints ; 2D list of ints
 Returns: bool
 '''
 def shipIsValid(grid, ship):
-    return
+    if checkShip(grid,ship):
+        if isVertical(ship) or isHorizontal(ship):
+            return True
+    return False
 
 
 '''
@@ -204,6 +208,15 @@ Parameters: dict mapping strs to values
 Returns: None
 '''
 def placeShip(data):
+    if data["user_added_ships"] == 5:
+        return
+    if shipIsValid(data["user_board"],data["temporary_ship"]):
+        for ship in data["temporary_ship"]:
+            data["user_board"][ship[0]][ship[1]] = SHIP_UNCLICKED
+        data["user_added_ships"] += 1
+    else:
+        print("Ship clicked is not valid")
+    data["temporary_ship"]=[[]]
     return
 
 
@@ -213,6 +226,10 @@ Parameters: dict mapping strs to values ; int ; int
 Returns: None
 '''
 def clickUserBoard(data, row, col):
+    if [row,col] not in data["temporary_ship"]:
+        data["temporary_ship"].append([row,col])
+        if len(data["temporary_ship"]) == 3:
+            placeShip(data)
     return
 
 
@@ -320,7 +337,7 @@ def runSimulation(w, h):
 if __name__ == "__main__":
 
     ## Finally, run the simulation to test it manually ##
-    runSimulation(500, 500)
-    # test.testIsVertical()
+    # runSimulation(500, 500)
+    test.testShipIsValid()
     # test.testIsHorizontal()
     # test.testDrawShip()
