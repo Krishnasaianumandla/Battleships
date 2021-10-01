@@ -43,8 +43,8 @@ Parameters: dict mapping strs to values ; Tkinter canvas ; Tkinter canvas
 Returns: None
 '''
 def makeView(data, userCanvas, compCanvas):
-    userCanvas = drawGrid(data,userCanvas,data["user_board"], True)
-    compCanvas = drawGrid(data,compCanvas,data["comp_board"], True)
+    drawGrid(data,userCanvas,data["user_board"], True)
+    drawGrid(data,compCanvas,data["comp_board"], True)
     return
 
 
@@ -148,7 +148,7 @@ Returns: bool
 '''
 def isVertical(ship):
     ship.sort()
-    if ship[0][0]+1 == ship[1][0] == ship[2][0]-1:
+    if ship[0][0]+1 == ship[1][0] == ship[2][0]-1 and ship[0][1]== ship[1][1]==ship[1][1]:
         return True
     return False
 
@@ -160,7 +160,7 @@ Returns: bool
 '''
 def isHorizontal(ship):
     ship.sort()
-    if ship[0][1]+1 == ship[1][1] == ship[2][1]-1:
+    if ship[0][1]+1 == ship[1][1] == ship[2][1]-1 and ship[0][0]== ship[1][0]==ship[1][0]:
         return True
     return False
 
