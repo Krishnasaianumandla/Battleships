@@ -133,12 +133,13 @@ Parameters: dict mapping strs to values ; Tkinter canvas ; 2D list of ints ; boo
 Returns: None
 '''
 def drawGrid(data, canvas, grid, showShips):
+    cellSize = data["cellSize"]
     for row in range(data["no_of_rows"]):
         for col in range(data["no_of_cols"]):
             if grid[row][col] == SHIP_UNCLICKED:
-                canvas.create_rectangle(data["cellSize"]*col,data["cellSize"]*row,data["cellSize"]*(col+1),data["cellSize"]*(row+1),fill="yellow")
+                canvas.create_rectangle(cellSize*col,cellSize*row,cellSize*(col+1),cellSize*(row+1),fill="yellow")
             else:
-                canvas.create_rectangle(data["cellSize"]*col,data["cellSize"]*row,data["cellSize"]*(col+1),data["cellSize"]*(row+1),fill="blue")
+                canvas.create_rectangle(cellSize*col,cellSize*row,cellSize*(col+1),cellSize*(row+1),fill="blue")
             
     return data
 
@@ -151,8 +152,13 @@ Returns: bool
 '''
 def isVertical(ship):
     ship.sort()
-    if ship[0][0]+1 == ship[1][0] == ship[2][0]-1 and ship[0][1]== ship[1][1]==ship[1][1]:
-        return True
+    count=0
+    stopCondition=len(ship)-1
+    for i in range(stopCondition):
+        if ship[i][0]+1 == ship[i+1][0] and ship[i][1] == ship[i+1][1]:
+            count+=1
+        if count == (stopCondition):
+            return True
     return False
 
 
@@ -163,8 +169,13 @@ Returns: bool
 '''
 def isHorizontal(ship):
     ship.sort()
-    if ship[0][1]+1 == ship[1][1] == ship[2][1]-1 and ship[0][0]== ship[1][0]==ship[1][0]:
-        return True
+    count=0
+    stopCondition=len(ship)-1
+    for i in range(stopCondition):
+        if ship[i][1]+1 == ship[i+1][1] and (ship[i][0] == ship[i+1][0]):
+            count+=1
+        if count==(stopCondition):
+            return True
     return False
 
 
@@ -209,7 +220,7 @@ Parameters: dict mapping strs to values
 Returns: None
 '''
 def placeShip(data):
-    if data["user_added_ships"] == 5:
+    if data["user_added_ships"] == data["no_of_ships"]:
         print("Start playing the game")
         return
     if shipIsValid(data["user_board"],data["temporary_ship"]):
