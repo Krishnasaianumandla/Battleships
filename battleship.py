@@ -142,8 +142,7 @@ def drawGrid(data, canvas, grid, showShips):
             if grid[row][col] == SHIP_UNCLICKED:
                 canvas.create_rectangle(data["cellSize"]*col,data["cellSize"]*row,data["cellSize"]*(col+1),data["cellSize"]*(row+1),fill="yellow")
             else:
-                canvas.create_rectangle(data["cellSize"]*col,data["cellSize"]*row,data["cellSize"]*(col+1),data["cellSize"]*(row+1),fill="blue")
-            
+                canvas.create_rectangle(data["cellSize"]*col,data["cellSize"]*row,data["cellSize"]*(col+1),data["cellSize"]*(row+1),fill="blue")      
     return data
 
 ### WEEK 2 ###
@@ -155,7 +154,7 @@ Returns: bool
 '''
 def isVertical(ship):
     ship.sort()
-    if ship[0][0]+1 == ship[1][0] == ship[2][0]-1 and ship[0][1]== ship[1][1]==ship[1][1]:
+    if ship[0][0]+1 == ship[1][0] == ship[2][0]-1 and (ship[0][1]== ship[1][1]==ship[2][1]):
         return True
     return False
 
@@ -167,7 +166,7 @@ Returns: bool
 '''
 def isHorizontal(ship):
     ship.sort()
-    if ship[0][1]+1 == ship[1][1] == ship[2][1]-1 and ship[0][0]== ship[1][0]==ship[1][0]:
+    if ship[0][1]+1 == ship[1][1] == ship[2][1]-1 and (ship[0][0]== ship[1][0]==ship[2][0]):
         return True
     return False
 
@@ -178,7 +177,7 @@ Parameters: dict mapping strs to values ; mouse event object
 Returns: list of ints
 '''
 def getClickedCell(data, event):
-    x,y = int(event.x/data["cellSize"]),int(event.y/data["cellSize"])
+    x,y = int(event.x//data["cellSize"]),int(event.y//data["cellSize"])
     return [y,x]
 
 
@@ -201,8 +200,7 @@ Parameters: 2D list of ints ; 2D list of ints
 Returns: bool
 '''
 def shipIsValid(grid, ship):
-    if checkShip(grid,ship):
-        if isVertical(ship) or isHorizontal(ship):
+    if checkShip(grid,ship) and (isVertical(ship) or isHorizontal(ship)):
             return True
     return False
 
