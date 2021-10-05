@@ -142,15 +142,15 @@ def drawGrid(data, canvas, grid, showShips):
     for row in range(data["no_of_rows"]):
         for col in range(data["no_of_cols"]):
             board=grid[row][col]
-            if board == SHIP_UNCLICKED and showShips==False:
+            if board == SHIP_UNCLICKED and showShips == False:
                 canvas.create_rectangle(cellSize*col,cellSize*row,cellSize*(col+1),cellSize*(row+1),fill="blue")
-            elif board == SHIP_UNCLICKED and showShips==True:
+            elif board == SHIP_UNCLICKED and showShips == True:
                 canvas.create_rectangle(cellSize*col,cellSize*row,cellSize*(col+1),cellSize*(row+1),fill="yellow")
-            if board == EMPTY_UNCLICKED:
+            elif board == EMPTY_UNCLICKED:
                 canvas.create_rectangle(cellSize*col,cellSize*row,cellSize*(col+1),cellSize*(row+1),fill="blue") 
-            if board == SHIP_CLICKED:
+            elif board == SHIP_CLICKED:
                 canvas.create_rectangle(cellSize*col,cellSize*row,cellSize*(col+1),cellSize*(row+1),fill="red")
-            if board==EMPTY_CLICKED:
+            else:
                canvas.create_rectangle(cellSize*col,cellSize*row,cellSize*(col+1),cellSize*(row+1),fill="white") 
     return data
 
