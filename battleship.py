@@ -267,7 +267,7 @@ def updateBoard(data, board, row, col, player):
     cellClicked=board[row][col]
     if cellClicked == SHIP_UNCLICKED:
         board[row][col] = SHIP_CLICKED
-    elif cellClicked == EMPTY_UNCLICKED:
+    else:
         board[row][col] = EMPTY_CLICKED
     return
 
@@ -282,6 +282,9 @@ def runGameTurn(data, row, col):
     if compBoard==SHIP_CLICKED or compBoard==EMPTY_CLICKED:
         return
     updateBoard(data,data["comp_board"],row,col,"user")
+    board=data["user_board"]
+    cell=getComputerGuess(board)
+    updateBoard(data,board,cell[0],cell[1],"comp")
     return
 
 
@@ -291,8 +294,13 @@ Parameters: 2D list of ints
 Returns: list of ints
 '''
 def getComputerGuess(board):
-    return
-
+    row,col=random.randint(0,9),random.randint(0,9)
+    if board[row][col] != SHIP_CLICKED and board[row][col] != EMPTY_CLICKED:        
+        return [row,col] 
+    while board[row][col] == SHIP_CLICKED or board[row][col] == EMPTY_CLICKED:
+        row,col=random.randint(0,9),random.randint(0,9)
+        if board[row][col] != SHIP_CLICKED and board[row][col] != EMPTY_CLICKED:        
+            return [row,col]
 
 '''
 isGameOver(board)
@@ -370,6 +378,6 @@ if __name__ == "__main__":
 
     ## Finally, run the simulation to test it manually ##
     runSimulation(500, 500)
-    # test.testUpdateBoard()
+    # test.testGetComputerGuess()
     # test.testIsHorizontal()
     # test.testDrawShip()
