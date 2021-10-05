@@ -70,7 +70,6 @@ def mousePressed(data, event, board):
     cell = getClickedCell(data,event)
     if board == "user":
         clickUserBoard(data,cell[0],cell[1])
-    pass
 
 #### WEEK 1 ####
 
@@ -227,7 +226,7 @@ Parameters: dict mapping strs to values ; int ; int
 Returns: None
 '''
 def clickUserBoard(data, row, col):
-    if data["user_added_ships"] == 5:
+    if data["user_added_ships"] == data["no_of_ships"]:
         print("Start playing the game")
         return 
     if [row,col] not in data["temporary_ship"]:
