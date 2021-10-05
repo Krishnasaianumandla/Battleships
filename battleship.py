@@ -149,8 +149,13 @@ Returns: bool
 '''
 def isVertical(ship):
     ship.sort()
-    if ship[0][0]+1 == ship[1][0] == ship[2][0]-1 and ship[0][1]== ship[1][1]==ship[1][1]:
-        return True
+    count=0
+    stopCondition=len(ship)-1
+    for i in range(stopCondition):
+        if ship[i][0]+1 == ship[i+1][0] and ship[i][1] == ship[i+1][1]:
+            count+=1
+        if count == (stopCondition):
+            return True
     return False
 
 
@@ -161,8 +166,13 @@ Returns: bool
 '''
 def isHorizontal(ship):
     ship.sort()
-    if ship[0][1]+1 == ship[1][1] == ship[2][1]-1 and ship[0][0]== ship[1][0]==ship[1][0]:
-        return True
+    count=0
+    stopCondition=len(ship)-1
+    for i in range(stopCondition):
+        if ship[i][1]+1 == ship[i+1][1] and (ship[i][0] == ship[i+1][0]):
+            count+=1
+        if count==(stopCondition):
+            return True
     return False
 
 
