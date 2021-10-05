@@ -83,7 +83,7 @@ Parameters: no parameters
 Returns: 2D list of ints
 '''
 def createShip():
-    row,col=random.randint(1,8),random.randint(1,8)
+    row,col = random.randint(1,8),random.randint(1,8)
     """position=1 indicates vertical allignment 
     and position=0 indicated horizontal allignment"""
     position=random.randint(0,1)
