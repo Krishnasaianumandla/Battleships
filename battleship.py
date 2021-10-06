@@ -294,13 +294,11 @@ Parameters: 2D list of ints
 Returns: list of ints
 '''
 def getComputerGuess(board):
-    row,col=random.randint(0,9),random.randint(0,9)
-    if board[row][col] != SHIP_CLICKED and board[row][col] != EMPTY_CLICKED:        
-        return [row,col] 
+    row,col=random.randint(0,9),random.randint(0,9)    
     while board[row][col] == SHIP_CLICKED or board[row][col] == EMPTY_CLICKED:
         row,col=random.randint(0,9),random.randint(0,9)
-        if board[row][col] != SHIP_CLICKED and board[row][col] != EMPTY_CLICKED:        
-            return [row,col]
+    if board[row][col] != SHIP_CLICKED and board[row][col] != EMPTY_CLICKED:        
+        return [row,col]
 
 '''
 isGameOver(board)
