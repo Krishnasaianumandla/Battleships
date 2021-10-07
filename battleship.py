@@ -37,6 +37,8 @@ def makeModel(data):
     data["temporary_ship"]=[]
     data["user_added_ships"] = 0
     data["winner"]= None
+    data["max_no_of_turns"]=50
+    data["current_no_of_turns"]=0
     return
 
 
@@ -289,6 +291,9 @@ def runGameTurn(data, row, col):
     board=data["user_board"]
     cell=getComputerGuess(board)
     updateBoard(data,board,cell[0],cell[1],"comp")
+    data["current_no_of_turns"]+=1
+    if data["current_no_of_turns"] == data["max_no_of_turns"]:
+        data["winner"]="draw"
     return
 
 
@@ -324,9 +329,10 @@ Returns: None
 def drawGameOver(data, canvas):
     if data["winner"] == "user":
         canvas.create_text(250, 225, text="Congratulations, you won the game!", fill="green", font=('Nunito 40 bold'),width=450,justify="center")
-    if data["winner"] == "comp":
+    elif data["winner"] == "comp":
         canvas.create_text(250, 225, text="You lost the game!", fill="green", font=('Nunito 40 bold'))
-
+    elif data["winner"] == "draw":
+        canvas.create_text(250,225,text="You are out of moves and have reached a draw",fill="green",font=('Nunito 40 bold'),width=450,justify="center")
 
 ### SIMULATION FRAMEWORK ###
 
