@@ -285,8 +285,8 @@ Parameters: dict mapping strs to values ; int ; int
 Returns: None
 '''
 def runGameTurn(data, row, col):
-    compBoard=data["comp_board"][row][col]
-    if compBoard==SHIP_CLICKED or compBoard==EMPTY_CLICKED:
+    compGuess=data["comp_board"][row][col]
+    if compGuess==SHIP_CLICKED or compGuess==EMPTY_CLICKED:
         return
     updateBoard(data,data["comp_board"],row,col,"user")
     board=data["user_board"]
