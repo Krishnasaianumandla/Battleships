@@ -69,7 +69,7 @@ def mousePressed(data, event, board):
     cell = getClickedCell(data,event)
     if board == "user":
         clickUserBoard(data,cell[0],cell[1])
-    if board=="comp" and data["user_added_ships"] == 5:
+    if board=="comp" and data["user_added_ships"] == data["no_of_ships"]:
         runGameTurn(data,cell[0],cell[1])
 
 
@@ -264,10 +264,9 @@ Parameters: dict mapping strs to values ; 2D list of ints ; int ; int ; str
 Returns: None
 '''
 def updateBoard(data, board, row, col, player):
-    cellClicked=board[row][col]
-    if cellClicked == SHIP_UNCLICKED:
+    if board[row][col] == SHIP_UNCLICKED:
         board[row][col] = SHIP_CLICKED
-    elif cellClicked == EMPTY_UNCLICKED:
+    else:
         board[row][col] = EMPTY_CLICKED
     return
 
@@ -278,11 +277,10 @@ Parameters: dict mapping strs to values ; int ; int
 Returns: None
 '''
 def runGameTurn(data, row, col):
-    compBoard=data["comp_board"][row][col]
-    if compBoard==SHIP_CLICKED or compBoard==EMPTY_CLICKED:
+    cellChosen=data["comp_board"][row][col]
+    if cellChosen==SHIP_CLICKED or cellChosen==EMPTY_CLICKED:
         return
     updateBoard(data,data["comp_board"],row,col,"user")
-    return
 
 
 '''
