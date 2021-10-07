@@ -219,9 +219,8 @@ Parameters: 2D list of ints ; 2D list of ints
 Returns: bool
 '''
 def shipIsValid(grid, ship):
-    if checkShip(grid,ship) and (isVertical(ship) or isHorizontal(ship)):
-            return True
-    return False
+    return checkShip(grid,ship) and (isVertical(ship) or isHorizontal(ship))
+
 
 
 '''
@@ -278,8 +277,8 @@ Parameters: dict mapping strs to values ; int ; int
 Returns: None
 '''
 def runGameTurn(data, row, col):
-    compBoard=data["comp_board"][row][col]
-    if compBoard==SHIP_CLICKED or compBoard==EMPTY_CLICKED:
+    compGuess=data["comp_board"][row][col]
+    if compGuess==SHIP_CLICKED or compGuess==EMPTY_CLICKED:
         return
     updateBoard(data,data["comp_board"],row,col,"user")
     board=data["user_board"]
