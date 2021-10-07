@@ -293,7 +293,7 @@ def runGameTurn(data, row, col):
     cell=getComputerGuess(board)
     updateBoard(data,board,cell[0],cell[1],"comp")
     data["current_no_of_turns"]+=1
-    if data["current_no_of_turns"] == data["max_no_of_turns"]:
+    if data["current_no_of_turns"] > data["max_no_of_turns"]:
         data["winner"]="draw"
     return
 
