@@ -219,9 +219,8 @@ Parameters: 2D list of ints ; 2D list of ints
 Returns: bool
 '''
 def shipIsValid(grid, ship):
-    if checkShip(grid,ship) and (isVertical(ship) or isHorizontal(ship)):
-            return True
-    return False
+    return checkShip(grid,ship) and (isVertical(ship) or isHorizontal(ship))
+
 
 
 '''
@@ -277,10 +276,14 @@ Parameters: dict mapping strs to values ; int ; int
 Returns: None
 '''
 def runGameTurn(data, row, col):
-    cellChosen=data["comp_board"][row][col]
-    if cellChosen==SHIP_CLICKED or cellChosen==EMPTY_CLICKED:
+    compGuess=data["comp_board"][row][col]
+    if compGuess==SHIP_CLICKED or compGuess==EMPTY_CLICKED:
         return
     updateBoard(data,data["comp_board"],row,col,"user")
+    board=data["user_board"]
+    cell=getComputerGuess(board)
+    updateBoard(data,board,cell[0],cell[1],"comp")
+    return
 
 
 '''
@@ -289,8 +292,11 @@ Parameters: 2D list of ints
 Returns: list of ints
 '''
 def getComputerGuess(board):
-    return
-
+    row,col=random.randint(0,9),random.randint(0,9)    
+    while board[row][col] == SHIP_CLICKED or board[row][col] == EMPTY_CLICKED:
+        row,col=random.randint(0,9),random.randint(0,9)
+    if board[row][col] != SHIP_CLICKED and board[row][col] != EMPTY_CLICKED:        
+        return [row,col]
 
 '''
 isGameOver(board)
@@ -368,6 +374,5 @@ if __name__ == "__main__":
 
     ## Finally, run the simulation to test it manually ##
     runSimulation(500, 500)
-    # test.testUpdateBoard()
     # test.testIsHorizontal()
     # test.testDrawShip()
