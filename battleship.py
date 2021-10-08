@@ -69,7 +69,7 @@ def mousePressed(data, event, board):
     cell = getClickedCell(data,event)
     if board == "user":
         clickUserBoard(data,cell[0],cell[1])
-    if board=="comp" and data["user_added_ships"] == 5:
+    if board=="comp" and data["user_added_ships"] == data["no_of_ships"]:
         runGameTurn(data,cell[0],cell[1])
 
 
@@ -263,8 +263,7 @@ Parameters: dict mapping strs to values ; 2D list of ints ; int ; int ; str
 Returns: None
 '''
 def updateBoard(data, board, row, col, player):
-    cellClicked=board[row][col]
-    if cellClicked == SHIP_UNCLICKED:
+    if board[row][col] == SHIP_UNCLICKED:
         board[row][col] = SHIP_CLICKED
     else:
         board[row][col] = EMPTY_CLICKED
@@ -375,6 +374,5 @@ if __name__ == "__main__":
 
     ## Finally, run the simulation to test it manually ##
     runSimulation(500, 500)
-    # test.testGetComputerGuess()
     # test.testIsHorizontal()
     # test.testDrawShip()
