@@ -62,7 +62,8 @@ Parameters: dict mapping strs to values ; key event object
 Returns: None
 '''
 def keyPressed(data, event):
-    pass
+    if event.keysym == "Return":
+        makeModel(data)
 
 
 '''
@@ -293,7 +294,7 @@ def runGameTurn(data, row, col):
     cell=getComputerGuess(board)
     updateBoard(data,board,cell[0],cell[1],"comp")
     data["current_no_of_turns"]+=1
-    if data["current_no_of_turns"] == data["max_no_of_turns"]:
+    if data["current_no_of_turns"] > data["max_no_of_turns"]:
         data["winner"]="draw"
     return
 
@@ -329,11 +330,14 @@ Returns: None
 '''
 def drawGameOver(data, canvas):
     if data["winner"] == "user":
-        canvas.create_text(250, 225, text="Congratulations, you won the game!", fill="green", font=('Nunito 40 bold'),width=450,justify="center")
+        canvas.create_text(250, 125, text="Congratulations, you won the game!", fill="pale violet red", font=('Nunito 40 bold'),width=450,justify="center")
+        canvas.create_text(250,300, text="Press Enter to restart the game",fill="light salmon",font=('Nunito 40 bold'),width=450,justify="center")
     elif data["winner"] == "comp":
-        canvas.create_text(250, 225, text="You lost the game!", fill="green", font=('Nunito 40 bold'))
+        canvas.create_text(250, 100, text="You lost the game!", fill="pale violet red", font=('Nunito 40 bold'))
+        canvas.create_text(250,250, text="Press Enter to restart the game",fill="light salmon",font=('Nunito 40 bold'),width=450,justify="center")
     elif data["winner"] == "draw":
-        canvas.create_text(250,225,text="You are out of moves and have reached a draw",fill="green",font=('Nunito 40 bold'),width=450,justify="center")
+        canvas.create_text(250,125,text="Out of moves, It's a draw",fill="pale violet red",font=('Nunito 40 bold'),width=450,justify="center")
+        canvas.create_text(250,300, text="Press Enter to restart the game",fill="light salmon",font=('Nunito 40 bold'),width=450,justify="center")
 
 ### SIMULATION FRAMEWORK ###
 
